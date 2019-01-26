@@ -1,0 +1,24 @@
+apiVersion: kops/v1alpha2
+kind: Cluster
+metadata:
+  name: ${cluster}
+spec:
+  api:
+    dns: {}
+  authorization:
+    rbac: {}
+  channel: stable
+  cloudProvider: aws
+  kubernetesVersion: ${kubernetes_version}
+  configBase: s3://${kops_state}/${cluster}
+  configStore: s3://${kops_state}/${cluster}
+  dnsZone: ${cluster_domain}
+  masterPublicName: api.${cluster}
+  masterInternalName: api.internal.${cluster}
+  networkID: ${vpc_id}
+  networkCIDR: ${vpc_cidr}
+  networking:
+    ${container_networking}: {}
+  etcdclusters:
+${etcd_clusters}
+  keyStore: s3://${kops_state}/${cluster}/pki
